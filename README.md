@@ -44,7 +44,29 @@ nano config/config.php
 
 ---
 
-### 第 2 步：启动服务器
+### 🐳 Docker 快速启动（推荐）
+
+如果你已安装 Docker，可以使用以下命令一键启动：
+
+```bash
+# 1. 配置 API 密钥
+cp config/config.example.php config/config.php
+nano config/config.php
+
+# 2. 启动容器
+docker compose up -d
+
+# 3. 查看日志
+docker compose logs -f
+```
+
+访问：`http://your-server-ip/index.html`
+
+**详细文档**：查看 [DOCKER.md](DOCKER.md) 了解完整的 Docker 部署指南。
+
+---
+
+### 第 2 步：启动服务器（PHP 内置服务器）
 
 ```bash
 cd /path/to/project
@@ -169,6 +191,8 @@ PHP 内置服务器不支持 HTTPS。生产环境建议使用 Nginx/Apache + Let
 
 ## 📚 更多文档
 
+- **DOCKER.md** - 🐳 Docker 部署指南（推荐生产环境）
+- **DEPLOYMENT.md** - 完整部署文档（Nginx、1Panel、Systemd）
 - **QUICKSTART.md** - 快速开始指南
 - **THEME.md** - UI 主题自定义
 - **API.md** - 详细接口文档（查看完整 API 说明）
