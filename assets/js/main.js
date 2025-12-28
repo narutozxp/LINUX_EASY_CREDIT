@@ -157,8 +157,8 @@ async function handleSubmit() {
             // 保存订单号到 localStorage
             localStorage.setItem('current_order', result.data.order_no);
 
-            // 跳转到支付页面
-            window.location.href = result.data.redirect_url;
+            // 使用 POST 表单提交支付请求
+            submitPaymentForm(result.data.pay_url, result.data.pay_params);
         } else {
             showError(result.message || '创建订单失败，请重试');
             setSubmitButtonLoading(false);
@@ -184,4 +184,32 @@ function formatTime(timeStr) {
     if (!timeStr) return '';
     const date = new Date(timeStr);
     return date.toLocaleString('zh-CN');
+}
+
+/**
+ * 提交支付表单（POST 方式）
+ * @param {string} payUrl - 支付网关地址
+ * @param {object} payParams - 支付参数
+ */
+function submitPaymentForm(payUrl, payParams) {
+    // 创建一个隐藏的表单
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = payUrl;
+    form.style.display = 'none';
+
+    // 将所有参数添加为隐藏字段
+    for (const key in payParams) {
+        if (payParams.hasOwnProperty(key)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = payParams[key];
+            form.appendChild(input);
+        }
+    }
+
+    // 将表单添加到页面并提交
+    document.body.appendChild(form);
+    form.submit();
 }

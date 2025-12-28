@@ -28,7 +28,7 @@ php-fpm -D
 sleep 2
 
 # 检查 PHP-FPM 是否正常运行
-if ! pgrep -x "php-fpm" > /dev/null; then
+if ! pgrep "php-fpm" > /dev/null; then
     echo "错误: PHP-FPM 启动失败"
     exit 1
 fi
