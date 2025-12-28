@@ -2,6 +2,8 @@
 
 基于 Linux.do Credit 的简洁打赏网站，3 步即可启动。
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Razewang/LINUX_EASY_CREDIT&env=EPAY_PID,EPAY_KEY&envDescription=Linux.do%20Credit%20API%20配置&envLink=https://credit.linux.do&project-name=reward-website&repository-name=reward-website)
+
 ## ✨ 功能特性
 
 - 💰 自定义金额 + 预设金额快捷按钮
@@ -70,7 +72,25 @@ nano config/config.php
 
 ### 第 3 步：启动服务
 
-#### 方式 A：Docker 部署（推荐）
+#### 方式 A：Vercel 一键部署（推荐）
+
+点击上方 **Deploy with Vercel** 按钮，然后：
+
+1. 登录 Vercel（可用 GitHub 账号）
+2. 填写环境变量：
+   - `EPAY_PID`: 你的 Client ID
+   - `EPAY_KEY`: 你的 Client Secret
+3. 点击 Deploy，等待部署完成
+4. 在 Linux.do Credit 控制台更新应用地址为 Vercel 分配的域名
+
+**可选环境变量**：
+| 变量名 | 说明 | 默认值 |
+|--------|------|--------|
+| `EPAY_GATEWAY` | 支付网关地址 | `https://credit.linux.do/epay` |
+| `MIN_AMOUNT` | 最小金额 | `0.01` |
+| `MAX_AMOUNT` | 最大金额 | `9999.99` |
+
+#### 方式 B：Docker 部署（推荐自托管）
 
 ```bash
 # 启动容器
@@ -84,7 +104,7 @@ docker compose logs -f
 
 **详细文档**：查看 [DOCKER.md](DOCKER.md) 了解完整的 Docker 部署指南。
 
-#### 方式 B：PHP 内置服务器（测试环境）
+#### 方式 C：PHP 内置服务器（测试环境）
 
 ```bash
 # 启动服务器

@@ -30,6 +30,13 @@ desktop.ini
 composer.phar
 composer.lock
 
+# Node.js
+/node_modules/
+package-lock.json
+
+# Vercel
+.vercel/
+
 # 环境变量
 .env
 .env.local
