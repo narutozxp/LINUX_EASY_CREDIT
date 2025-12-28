@@ -13,9 +13,9 @@
 | 字段 | 说明 | 填写示例 |
 |------|------|---------|
 | **应用名称** | 自定义应用名称 | `我的打赏网站` |
-| **应用主页** | 你的网站域名 | `https://donate.momb.top` |
-| **通知地址** | 异步回调通知（支付成功后调用） | `https://donate.momb.top/api/notify.php` |
-| **回调地址** | 同步返回页面（用户支付后跳转） | `https://donate.momb.top/success.html` |
+| **应用主页** | 你的网站域名 | `https://tip.yourdomain.com` |
+| **通知地址** | 异步回调通知（支付成功后调用） | `https://tip.yourdomain.com/api/notify.php` |
+| **回调地址** | 同步返回页面（用户支付后跳转） | `https://tip.yourdomain.com/success.html` |
 
 4. 创建成功后，复制 **Client ID** 和 **Client Secret** 备用
 
@@ -49,8 +49,8 @@ nano config/config.php
 'epay' => [
     'pid' => 'YOUR_CLIENT_ID',              // ← 第 1 步获取的 Client ID
     'key' => 'YOUR_CLIENT_SECRET',          // ← 第 1 步获取的 Client Secret
-    'notify_url' => 'https://donate.momb.top/api/notify.php',  // ← 与创建应用时一致
-    'return_url' => 'https://donate.momb.top/success.html',     // ← 与创建应用时一致
+    'notify_url' => 'https://tip.yourdomain.com/api/notify.php',  // ← 与创建应用时一致
+    'return_url' => 'https://tip.yourdomain.com/success.html',     // ← 与创建应用时一致
 ],
 ```
 
@@ -92,7 +92,7 @@ docker compose up -d
 docker compose logs -f
 ```
 
-访问：`https://donate.momb.top/index.html`
+访问：`https://tip.yourdomain.com/index.html`
 
 **方式 B：PHP 内置服务器（测试环境）**
 
@@ -155,8 +155,8 @@ pkill -f "php -S"
 
 **示例**：
 ```php
-// Linux.do Credit 应用配置：https://donate.momb.top/api/notify.php
-// config.php 配置：http://donate.momb.top/api/notify.php  ← 协议不一致！
+// Linux.do Credit 应用配置：https://tip.yourdomain.com/api/notify.php
+// config.php 配置：http://tip.yourdomain.com/api/notify.php  ← 协议不一致！
 ```
 
 **解决**：确保两边的地址**完全一致**（包括协议、域名、路径）
@@ -168,7 +168,7 @@ pkill -f "php -S"
 'notify_url' => 'http://localhost/api/notify.php',
 
 // ✅ 正确
-'notify_url' => 'https://donate.momb.top/api/notify.php',
+'notify_url' => 'https://tip.yourdomain.com/api/notify.php',
 ```
 
 ### 错误 4：未修改占位符
@@ -197,7 +197,7 @@ php -m | grep curl
 
 ### 2. 测试 API 接口
 
-访问：`https://donate.momb.top/api/create_order.php`
+访问：`https://tip.yourdomain.com/api/create_order.php`
 
 应该返回类似：
 ```json

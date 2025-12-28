@@ -18,14 +18,14 @@
 
 1. 访问 https://credit.linux.do → 登录
 2. 进入 **控制台** → **集市中心** → 点击 **创建应用**
-3. 填写应用信息（假设你的域名是 `donate.momb.top`）：
+3. 填写应用信息（假设你的域名是 `tip.yourdomain.com`）：
 
 | 字段 | 填写内容 |
 |------|---------|
 | **应用名称** | 打赏网站（或自定义名称） |
-| **应用主页** | `https://donate.momb.top` |
-| **通知地址** | `https://donate.momb.top/api/notify.php` |
-| **回调地址** | `https://donate.momb.top/success.html` |
+| **应用主页** | `https://tip.yourdomain.com` |
+| **通知地址** | `https://tip.yourdomain.com/api/notify.php` |
+| **回调地址** | `https://tip.yourdomain.com/success.html` |
 
 4. 创建成功后，记录 **Client ID** 和 **Client Secret**
 
@@ -52,15 +52,15 @@ nano config/config.php
 |--------|------|--------|
 | `pid` | Client ID（第 1 步获取） | `10001` |
 | `key` | Client Secret（第 1 步获取） | `sk_xxxxx...` |
-| `notify_url` | 通知地址（与第 1 步**完全一致**） | `https://donate.momb.top/api/notify.php` |
-| `return_url` | 回调地址（与第 1 步**完全一致**） | `https://donate.momb.top/success.html` |
+| `notify_url` | 通知地址（与第 1 步**完全一致**） | `https://tip.yourdomain.com/api/notify.php` |
+| `return_url` | 回调地址（与第 1 步**完全一致**） | `https://tip.yourdomain.com/success.html` |
 
 ```php
 'epay' => [
     'pid' => '10001',  // ← 你的 Client ID
     'key' => 'sk_xxxxx...',  // ← 你的 Client Secret
-    'notify_url' => 'https://donate.momb.top/api/notify.php',  // ← 与创建应用时一致
-    'return_url' => 'https://donate.momb.top/success.html',     // ← 与创建应用时一致
+    'notify_url' => 'https://tip.yourdomain.com/api/notify.php',  // ← 与创建应用时一致
+    'return_url' => 'https://tip.yourdomain.com/success.html',     // ← 与创建应用时一致
 ],
 ```
 
@@ -80,7 +80,7 @@ docker compose up -d
 docker compose logs -f
 ```
 
-访问：`https://donate.momb.top/index.html`
+访问：`https://tip.yourdomain.com/index.html`
 
 **详细文档**：查看 [DOCKER.md](DOCKER.md) 了解完整的 Docker 部署指南。
 
@@ -107,7 +107,7 @@ pkill -f "php -S"
 
 ## ✅ 测试支付流程
 
-1. 访问网站：`https://donate.momb.top/index.html`
+1. 访问网站：`https://tip.yourdomain.com/index.html`
 2. 选择或输入金额（建议先用 **0.01** 测试）
 3. 填写留言（可选）
 4. 点击"下一步"
@@ -133,7 +133,7 @@ pkill -f "php -S"
 | 域名类型 | 通知地址示例 | 回调地址示例 |
 |---------|-------------|-------------|
 | 主域名 | `https://example.com/api/notify.php` | `https://example.com/success.html` |
-| 子域名 | `https://donate.example.com/api/notify.php` | `https://donate.example.com/success.html` |
+| 子域名 | `https://tip.example.com/api/notify.php` | `https://tip.example.com/success.html` |
 | 带端口 | `http://example.com:8000/api/notify.php` | `http://example.com:8000/success.html` |
 
 ---
