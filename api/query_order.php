@@ -28,6 +28,11 @@ try {
         $helper->jsonResponse(400, '订单号不能为空');
     }
 
+    // 安全验证：订单号只允许字母数字，防止路径遍历攻击
+    if (!preg_match('/^[A-Za-z0-9]+$/', $orderNo)) {
+        $helper->jsonResponse(400, '订单号格式不正确');
+    }
+
     // 读取本地订单信息
     $orderFile = __DIR__ . '/../logs/orders/' . $orderNo . '.json';
 

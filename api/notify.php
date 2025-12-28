@@ -49,6 +49,13 @@ try {
         exit;
     }
 
+    // 安全验证：订单号只允许字母数字，防止路径遍历攻击
+    if (!preg_match('/^[A-Za-z0-9]+$/', $outTradeNo)) {
+        $helper->log("回调失败: 订单号格式不正确 - {$outTradeNo}", 'error');
+        echo 'fail';
+        exit;
+    }
+
     // 读取订单信息
     $orderFile = __DIR__ . '/../logs/orders/' . $outTradeNo . '.json';
 

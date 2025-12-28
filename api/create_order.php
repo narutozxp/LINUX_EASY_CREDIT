@@ -83,7 +83,7 @@ try {
         $signString .= $k . '=' . $v . '&';
     }
     $signString = rtrim($signString, '&');
-    $helper->log("签名调试 - 待签名字符串: {$signString}{$config['epay']['key']}");
+    $helper->log("签名调试 - 待签名字符串: {$signString}[KEY_HIDDEN]");
     $helper->log("签名调试 - 生成的签名: {$payParams['sign']}");
 
     // 构建支付URL
