@@ -53,14 +53,15 @@ try {
     $outTradeNo = $helper->generateOrderNo();
 
     // 构建支付参数
+    // 注意：根据官方文档，notify_url 和 return_url 不参与请求
+    // 这些 URL 在控制台配置，不需要在请求中传递
     $payParams = [
         'pid' => $config['epay']['pid'],
         'type' => 'epay',
         'out_trade_no' => $outTradeNo,
         'name' => '打赏支持' . ($message ? '：' . mb_substr($message, 0, 20) : ''),
         'money' => $amount,
-        'notify_url' => $config['epay']['notify_url'],
-        'return_url' => $config['epay']['return_url'],
+        // notify_url 和 return_url 已在控制台配置，不在此传递
     ];
 
     // 生成签名
