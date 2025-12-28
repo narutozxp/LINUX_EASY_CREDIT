@@ -55,12 +55,13 @@ try {
     // 构建支付参数
     // 注意：根据官方文档，notify_url 和 return_url 不参与请求
     // 这些 URL 在控制台配置，不需要在请求中传递
+    // 重要：money 必须格式化为固定两位小数的字符串，否则签名会失败
     $payParams = [
         'pid' => $config['epay']['pid'],
         'type' => 'epay',
         'out_trade_no' => $outTradeNo,
         'name' => '打赏支持' . ($message ? '：' . mb_substr($message, 0, 20) : ''),
-        'money' => $amount,
+        'money' => number_format($amount, 2, '.', ''),  // 格式化为两位小数: 3 → "3.00"
         // notify_url 和 return_url 已在控制台配置，不在此传递
     ];
 
