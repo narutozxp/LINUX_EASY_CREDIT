@@ -1,8 +1,6 @@
 # 打赏网站项目
 
-基于 Linux.do Credit 的简洁打赏网站，3 步即可启动。
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Razewang/LINUX_EASY_CREDIT&env=EPAY_PID,EPAY_KEY&envDescription=Linux.do%20Credit%20API%20配置&envLink=https://credit.linux.do&project-name=reward-website&repository-name=reward-website)
+基于 Linux.do Credit 的简洁打赏网站。
 
 ## ✨ 功能特性
 
@@ -14,124 +12,129 @@
 
 ---
 
-## 🚀 快速开始（3 步启动）
+## 🚀 选择部署方式
 
-### 第 1 步：在 Linux.do Credit 创建应用
+| 方式 | 难度 | 适用场景 | 需要服务器 |
+|-----|------|---------|-----------|
+| **[Vercel 一键部署](#-vercel-一键部署推荐)** | ⭐ 最简单 | 快速上线、无服务器 | ❌ 不需要 |
+| **[Docker 部署](#-docker-部署)** | ⭐⭐ 简单 | 自托管、完整功能 | ✅ 需要 |
+| **[PHP 部署](#-php-手动部署)** | ⭐⭐⭐ 中等 | 传统服务器 | ✅ 需要 |
 
-1. 访问 https://credit.linux.do → 登录
-2. 进入 **控制台** → **集市中心** → 点击 **创建应用**
-3. 填写应用信息（假设你的域名是 `tip.yourdomain.com`）：
+---
+
+## ☁️ Vercel 一键部署（推荐）
+
+**无需服务器，3 分钟完成部署！**
+
+### 步骤 1：获取 API 密钥
+
+1. 访问 [credit.linux.do](https://credit.linux.do) → 登录
+2. 进入 **控制台** → **集市中心** → **创建应用**
+3. 记录 **Client ID** 和 **Client Secret**
+
+### 步骤 2：一键部署
+
+点击下方按钮，自动部署到 Vercel：
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Razewang/LINUX_EASY_CREDIT&env=EPAY_PID,EPAY_KEY&envDescription=Linux.do%20Credit%20API%20配置&envLink=https://credit.linux.do&project-name=reward-website&repository-name=reward-website)
+
+部署时填写环境变量：
+
+| 变量名 | 必填 | 说明 |
+|--------|-----|------|
+| `EPAY_PID` | ✅ | 你的 Client ID |
+| `EPAY_KEY` | ✅ | 你的 Client Secret |
+| `EPAY_GATEWAY` | ❌ | 支付网关（默认 `https://credit.linux.do/epay`） |
+| `MIN_AMOUNT` | ❌ | 最小金额（默认 `0.01`） |
+| `MAX_AMOUNT` | ❌ | 最大金额（默认 `9999.99`） |
+
+### 步骤 3：配置回调地址
+
+部署完成后，Vercel 会分配一个域名（如 `reward-website-xxx.vercel.app`）。
+
+回到 [Linux.do Credit 控制台](https://credit.linux.do)，更新你的应用：
 
 | 字段 | 填写内容 |
 |------|---------|
-| **应用名称** | 打赏网站（或自定义名称） |
-| **应用主页** | `https://tip.yourdomain.com` |
-| **通知地址** | `https://tip.yourdomain.com/api/notify.php` |
-| **回调地址** | `https://tip.yourdomain.com/success.html` |
+| **应用主页** | `https://your-app.vercel.app` |
+| **通知地址** | `https://your-app.vercel.app/api/notify.php` |
+| **回调地址** | `https://your-app.vercel.app/success.html` |
 
-4. 创建成功后，记录 **Client ID** 和 **Client Secret**
-
-⚠️ **重要说明**：
-- 通知地址和回调地址必须是**外网可访问**的完整 URL
-- 不能使用 `localhost` 或 `127.0.0.1`
-- 推荐使用 HTTPS（生产环境）
+**完成！** 访问 `https://your-app.vercel.app` 即可使用。
 
 ---
 
-### 第 2 步：配置项目文件
+## 🐳 Docker 部署
+
+适合有服务器的用户，支持完整功能（订单持久化存储）。
+
+### 步骤 1：获取 API 密钥
+
+同上，在 [credit.linux.do](https://credit.linux.do) 创建应用并记录密钥。
+
+### 步骤 2：配置文件
 
 ```bash
-# 复制配置模板
-cp config/config.example.php config/config.php
+# 克隆项目
+git clone https://github.com/Razewang/LINUX_EASY_CREDIT.git
+cd LINUX_EASY_CREDIT
 
-# 编辑配置文件
+# 创建配置文件
+cp config/config.example.php config/config.php
 nano config/config.php
 ```
 
-**填写以下配置**（必须与第 1 步创建应用时填写的信息一致）：
-
-| 配置项 | 说明 | 示例值 |
-|--------|------|--------|
-| `pid` | Client ID（第 1 步获取） | `10001` |
-| `key` | Client Secret（第 1 步获取） | `sk_xxxxx...` |
-| `notify_url` | 通知地址（与第 1 步**完全一致**） | `https://tip.yourdomain.com/api/notify.php` |
-| `return_url` | 回调地址（与第 1 步**完全一致**） | `https://tip.yourdomain.com/success.html` |
+填写配置：
 
 ```php
 'epay' => [
-    'pid' => '10001',  // ← 你的 Client ID
-    'key' => 'sk_xxxxx...',  // ← 你的 Client Secret
-    'notify_url' => 'https://tip.yourdomain.com/api/notify.php',  // ← 与创建应用时一致
-    'return_url' => 'https://tip.yourdomain.com/success.html',     // ← 与创建应用时一致
+    'pid' => '你的 Client ID',
+    'key' => '你的 Client Secret',
+    'notify_url' => 'https://你的域名/api/notify.php',
+    'return_url' => 'https://你的域名/success.html',
 ],
 ```
 
-💡 **提示**：`notify_url` 和 `return_url` 仅用于签名验证，Linux.do Credit 实际使用的是创建应用时填写的地址。
+### 步骤 3：启动容器
+
+```bash
+docker compose up -d
+```
+
+**详细文档**：[DOCKER.md](DOCKER.md)
 
 ---
 
-### 第 3 步：启动服务
+## 🔧 PHP 手动部署
 
-#### 方式 A：Vercel 一键部署（推荐）
+适合传统 PHP 环境（Apache/Nginx + PHP）。
 
-点击上方 **Deploy with Vercel** 按钮，然后：
-
-1. 登录 Vercel（可用 GitHub 账号）
-2. 填写环境变量：
-   - `EPAY_PID`: 你的 Client ID
-   - `EPAY_KEY`: 你的 Client Secret
-3. 点击 Deploy，等待部署完成
-4. 在 Linux.do Credit 控制台更新应用地址为 Vercel 分配的域名
-
-**可选环境变量**：
-| 变量名 | 说明 | 默认值 |
-|--------|------|--------|
-| `EPAY_GATEWAY` | 支付网关地址 | `https://credit.linux.do/epay` |
-| `MIN_AMOUNT` | 最小金额 | `0.01` |
-| `MAX_AMOUNT` | 最大金额 | `9999.99` |
-
-#### 方式 B：Docker 部署（推荐自托管）
+### 快速启动（测试）
 
 ```bash
-# 启动容器
-docker compose up -d
+# 克隆并配置
+git clone https://github.com/Razewang/LINUX_EASY_CREDIT.git
+cd LINUX_EASY_CREDIT
+cp config/config.example.php config/config.php
+nano config/config.php  # 填写配置
 
-# 查看日志
-docker compose logs -f
-```
-
-访问：`https://tip.yourdomain.com/index.html`
-
-**详细文档**：查看 [DOCKER.md](DOCKER.md) 了解完整的 Docker 部署指南。
-
-#### 方式 C：PHP 内置服务器（测试环境）
-
-```bash
 # 启动服务器
 php -S 0.0.0.0:8000
-
-# 后台运行（推荐）
-nohup php -S 0.0.0.0:8000 > logs/server.log 2>&1 &
 ```
 
-访问：`http://your-server-ip:8000/index.html`
+访问：`http://your-ip:8000`
 
-**停止服务器**：
-```bash
-pkill -f "php -S"
-```
-
-**生产环境部署**：建议使用 Nginx 反向代理 + HTTPS，详见 [DEPLOYMENT.md](DEPLOYMENT.md)
+**生产环境**：建议使用 Nginx + PHP-FPM，详见 [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ---
 
 ## ✅ 测试支付流程
 
-1. 访问网站：`https://tip.yourdomain.com/index.html`
+1. 访问你的网站
 2. 选择或输入金额（建议先用 **0.01** 测试）
 3. 填写留言（可选）
 4. 点击"下一步"
-5. 在 Linux.do Credit 完成支付认证
+5. 在 Linux.do Credit 完成支付
 6. 自动返回查看结果
 
 ---
@@ -140,51 +143,31 @@ pkill -f "php -S"
 
 部署前请确认：
 
-- [ ] 已在 Linux.do Credit **创建应用**并填写通知地址、回调地址
-- [ ] config.php 中的地址与创建应用时填写的**完全一致**
-- [ ] 地址使用外网可访问的域名（不能用 localhost）
+- [ ] 已在 Linux.do Credit **创建应用**
+- [ ] 已正确填写 Client ID 和 Client Secret
 - [ ] 通知地址格式：`https://你的域名/api/notify.php`
 - [ ] 回调地址格式：`https://你的域名/success.html`
-- [ ] 已正确填写 Client ID 和 Client Secret
-- [ ] 已启动服务并能正常访问
-
-**常见地址格式**：
-
-| 域名类型 | 通知地址示例 | 回调地址示例 |
-|---------|-------------|-------------|
-| 主域名 | `https://example.com/api/notify.php` | `https://example.com/success.html` |
-| 子域名 | `https://tip.example.com/api/notify.php` | `https://tip.example.com/success.html` |
-| 带端口 | `http://example.com:8000/api/notify.php` | `http://example.com:8000/success.html` |
+- [ ] 地址必须是外网可访问的（不能用 localhost）
 
 ---
 
 ## ⚙️ 自定义配置
 
-### 修改预设金额
+### Docker/PHP 部署
 
 编辑 `config/config.php`：
 
 ```php
-'preset_amounts' => [2, 6, 18, 66, 188],  // 修改为您需要的金额
-```
-
-### 修改金额限制
-
-```php
-'min_amount' => 1,      // 最小 1 元
-'max_amount' => 500,    // 最大 500 元
-```
-
-### 修改页面文案
-
-```php
+'preset_amounts' => [2, 6, 18, 66, 188],  // 预设金额
+'min_amount' => 1,      // 最小金额
+'max_amount' => 500,    // 最大金额
 'title' => '请我喝咖啡',
 'description' => '您的支持是创作的动力',
 ```
 
-### 修改 UI 主题
+### Vercel 部署
 
-查看 `THEME.md` 了解如何自定义颜色和样式。
+在 Vercel 控制台 → Settings → Environment Variables 中修改。
 
 ---
 
@@ -193,55 +176,50 @@ pkill -f "php -S"
 ```
 reward-website/
 ├── index.html              # 打赏页面
-├── success.html           # 支付成功页面
-├── api/                   # 后端接口
-│   ├── create_order.php   # 创建订单
-│   ├── query_order.php    # 查询订单
-│   └── notify.php         # 支付回调
+├── success.html            # 支付成功页面
+├── vercel.json             # Vercel 配置
+├── api/
+│   ├── create_order.php    # PHP 版 API
+│   ├── create-order.js     # Vercel 版 API
+│   └── ...
 ├── config/
-│   ├── config.php         # 配置文件（需创建）
-│   └── config.example.php # 配置模板
-└── assets/                # CSS/JS 资源
+│   └── config.example.php  # 配置模板
+└── assets/                 # CSS/JS 资源
 ```
 
 ---
 
 ## ❓ 常见问题
 
+### Q: Vercel 部署后订单数据会丢失吗？
+Vercel 是无状态的，订单数据不会持久化保存。如需保存，可配置外部数据库或使用 Docker 部署。
+
 ### Q: 如何获取 Client ID 和 Secret？
-访问 https://credit.linux.do → 控制台 → 应用管理 → 创建应用
+访问 https://credit.linux.do → 控制台 → 集市中心 → 创建应用
 
-### Q: notify_url 配置错误会怎样？
-支付会成功，但您的服务器收不到通知。可以通过成功页面的轮询查询获取状态。
-
-### Q: 80 端口被占用怎么办？
-使用其他端口：`php -S 0.0.0.0:8080`，域名配置也要加端口号。
+### Q: 签名验证失败怎么办？
+检查 Client ID 和 Secret 是否正确，确保没有多余空格。
 
 ### Q: 如何查看日志？
-```bash
-tail -f logs/server.log           # 服务器日志
-tail -f logs/$(date +%Y-%m-%d).log  # 应用日志
-```
-
-### Q: 支持 HTTPS 吗？
-PHP 内置服务器不支持 HTTPS。生产环境建议使用 Nginx/Apache + Let's Encrypt。
+- **Vercel**: 控制台 → Functions → Logs
+- **Docker**: `docker compose logs -f`
+- **PHP**: `tail -f logs/*.log`
 
 ---
 
 ## 📚 更多文档
 
-- **DOCKER.md** - 🐳 Docker 部署指南（推荐生产环境）
-- **DEPLOYMENT.md** - 完整部署文档（Nginx、1Panel、Systemd）
-- **QUICKSTART.md** - 快速开始指南
-- **THEME.md** - UI 主题自定义
-- **API.md** - 详细接口文档（查看完整 API 说明）
+- [DOCKER.md](DOCKER.md) - Docker 部署指南
+- [DEPLOYMENT.md](DEPLOYMENT.md) - 完整部署文档
+- [THEME.md](THEME.md) - UI 主题自定义
+- [API.md](API.md) - 接口文档
 
 ---
 
-## 📧 技术支持
+## 📧 支持
 
 - **Linux.do Credit 文档**: https://credit.linux.do/docs
-- **GitHub 仓库**: https://github.com/Razewang/LINUX_EASY_CREDIT
+- **GitHub Issues**: https://github.com/Razewang/LINUX_EASY_CREDIT/issues
 
 ---
 
