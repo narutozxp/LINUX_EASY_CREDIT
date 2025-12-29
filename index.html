@@ -6,10 +6,22 @@
     <title>打赏支持</title>
     <meta name="description" content="感谢您的支持，每一份打赏都是对创作的鼓励">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script>
+        (() => {
+            try {
+                const saved = localStorage.getItem('theme-preference');
+                if (saved === 'light' || saved === 'dark') {
+                    document.documentElement.dataset.theme = saved;
+                }
+            } catch (_) {}
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="reward-card fade-in">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题" title="切换主题">🖥️</button>
+
             <!-- 错误提示 -->
             <div id="errorMessage" class="error-message"></div>
 
@@ -80,6 +92,7 @@
         </div>
     </div>
 
+    <script src="./assets/js/theme.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>

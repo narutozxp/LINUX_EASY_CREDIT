@@ -5,31 +5,137 @@
 
 /* ===== 颜色变量 ===== */
 :root {
+    color-scheme: light dark;
+
+    /* ===== 浅色主题（默认 / 日间） ===== */
     /* 背景色 */
-    --bg-primary: #0a0a0a;           /* 主背景 - 纯黑 */
-    --bg-secondary: #1a1a1a;         /* 卡片背景 - 深灰 */
-    --bg-tertiary: #252525;          /* 输入框背景 */
-    --bg-hover: #2a2a2a;             /* 悬停状态 */
+    --bg-primary: #f5f6f8;           /* 主背景 - 浅灰 */
+    --bg-secondary: #ffffff;         /* 卡片背景 - 白 */
+    --bg-tertiary: #ffffff;          /* 输入框背景 - 白 */
+    --bg-hover: #f3f4f6;             /* 悬停状态 */
 
     /* 文字颜色 */
-    --text-primary: #ffffff;         /* 主要文字 - 白色 */
-    --text-secondary: #a0a0a0;       /* 次要文字 - 浅灰 */
-    --text-muted: #666666;           /* 辅助文字 - 中灰 */
+    --text-primary: #111827;         /* 主要文字 */
+    --text-secondary: #6b7280;       /* 次要文字 */
+    --text-muted: #9ca3af;           /* 辅助文字 */
 
     /* 强调色 */
-    --accent-primary: #f5f5f5;       /* 主按钮背景 - 浅色 */
-    --accent-text: #0a0a0a;          /* 主按钮文字 - 深色 */
+    --accent-primary: #6366f1;       /* 主按钮背景 - 紫蓝 */
+    --accent-primary-hover: #4f46e5; /* hover */
+    --accent-primary-active: #4338ca;/* active */
+    --accent-text: #ffffff;          /* 主按钮文字 */
     --accent-red: #ef4444;           /* 必填标记 - 红色 */
 
     /* 边框 */
-    --border-color: #333333;         /* 边框颜色 */
+    --border-color: #e5e7eb;         /* 边框颜色 */
+    --border-focus: #a5b4fc;         /* 聚焦边框 */
     --border-radius: 12px;           /* 统一圆角 */
     --border-radius-lg: 16px;        /* 大圆角 */
+
+    /* 阴影 */
+    --shadow-sm: 0 2px 8px rgba(17, 24, 39, 0.06);
+    --shadow-md: 0 10px 30px rgba(17, 24, 39, 0.12);
+    --shadow-lg: 0 20px 60px rgba(17, 24, 39, 0.16);
+
+    /* 焦点外发光 */
+    --focus-ring: rgba(99, 102, 241, 0.22);
+}
+
+/* ===== 深色主题（跟随系统） ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* 背景色 */
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #1a1a1a;
+        --bg-tertiary: #252525;
+        --bg-hover: #2a2a2a;
+
+        /* 文字颜色 */
+        --text-primary: #ffffff;
+        --text-secondary: #a0a0a0;
+        --text-muted: #666666;
+
+        /* 强调色 */
+        --accent-primary: #f5f5f5;
+        --accent-primary-hover: #ffffff;
+        --accent-primary-active: #e5e5e5;
+        --accent-text: #0a0a0a;
+
+        /* 边框 */
+        --border-color: #333333;
+        --border-focus: #4b5563;
+
+        /* 阴影 */
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+        /* 焦点外发光 */
+        --focus-ring: rgba(245, 245, 245, 0.10);
+    }
+}
+
+/* ===== 手动强制主题（优先级最高） ===== */
+html[data-theme="light"] {
+    /* 背景色 */
+    --bg-primary: #f5f6f8;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #ffffff;
+    --bg-hover: #f3f4f6;
+
+    /* 文字颜色 */
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+
+    /* 强调色 */
+    --accent-primary: #6366f1;
+    --accent-primary-hover: #4f46e5;
+    --accent-primary-active: #4338ca;
+    --accent-text: #ffffff;
+
+    /* 边框 */
+    --border-color: #e5e7eb;
+    --border-focus: #a5b4fc;
+
+    /* 阴影 */
+    --shadow-sm: 0 2px 8px rgba(17, 24, 39, 0.06);
+    --shadow-md: 0 10px 30px rgba(17, 24, 39, 0.12);
+    --shadow-lg: 0 20px 60px rgba(17, 24, 39, 0.16);
+
+    /* 焦点外发光 */
+    --focus-ring: rgba(99, 102, 241, 0.22);
+}
+
+html[data-theme="dark"] {
+    /* 背景色 */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #252525;
+    --bg-hover: #2a2a2a;
+
+    /* 文字颜色 */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    /* 强调色 */
+    --accent-primary: #f5f5f5;
+    --accent-primary-hover: #ffffff;
+    --accent-primary-active: #e5e5e5;
+    --accent-text: #0a0a0a;
+
+    /* 边框 */
+    --border-color: #333333;
+    --border-focus: #4b5563;
 
     /* 阴影 */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    /* 焦点外发光 */
+    --focus-ring: rgba(245, 245, 245, 0.10);
 }
 
 /* ===== 基础重置 ===== */
@@ -51,6 +157,7 @@ body {
     align-items: center;
     padding: 20px;
     line-height: 1.6;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* ===== 容器 ===== */
@@ -65,6 +172,43 @@ body {
     border-radius: var(--border-radius-lg);
     padding: 32px 24px;
     box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ===== 主题切换按钮 ===== */
+.theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+}
+
+.theme-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    border-color: var(--border-focus);
 }
 
 /* ===== 头部 ===== */
@@ -79,12 +223,13 @@ body {
     width: 48px;
     height: 48px;
     margin: 0 auto 16px;
-    background: var(--bg-tertiary);
+    background: var(--bg-hover);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    border: 1px solid var(--border-color);
 }
 
 .header h1 {
@@ -132,7 +277,7 @@ body {
 .amount-btn {
     padding: 14px 12px;
     background: var(--bg-tertiary);
-    border: 2px solid transparent;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     color: var(--text-primary);
     font-size: 16px;
@@ -144,7 +289,7 @@ body {
 
 .amount-btn:hover {
     background: var(--bg-hover);
-    border-color: var(--border-color);
+    border-color: var(--border-focus);
 }
 
 .amount-btn.active {
@@ -163,14 +308,14 @@ body {
 
 .input-label {
     padding: 14px 20px;
-    background: var(--bg-tertiary);
+    background: var(--bg-hover);
     border-radius: var(--border-radius);
     color: var(--text-secondary);
     font-size: 16px;
     font-weight: 600;
     min-width: 70px;
     text-align: center;
-    border: 2px solid transparent;
+    border: 1px solid var(--border-color);
 }
 
 .form-input {
@@ -178,7 +323,7 @@ body {
     width: 100%;
     padding: 14px 16px;
     background: var(--bg-tertiary);
-    border: 2px solid transparent;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     color: var(--text-primary);
     font-size: 16px;
@@ -189,7 +334,8 @@ body {
 .form-input:focus {
     outline: none;
     background: var(--bg-hover);
-    border-color: var(--border-color);
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
 .form-input::placeholder {
@@ -201,7 +347,7 @@ body {
     width: 100%;
     padding: 14px 16px;
     background: var(--bg-tertiary);
-    border: 2px solid transparent;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     color: var(--text-primary);
     font-size: 14px;
@@ -215,7 +361,8 @@ body {
 .form-textarea:focus {
     outline: none;
     background: var(--bg-hover);
-    border-color: var(--border-color);
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
 .form-textarea::placeholder {
@@ -280,19 +427,20 @@ body {
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: #ffffff;
+    background: var(--accent-primary-hover);
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:active:not(:disabled) {
     transform: translateY(0);
+    background: var(--accent-primary-active);
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--text-primary);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -373,6 +521,7 @@ body {
     border-radius: var(--border-radius);
     padding: 16px;
     margin: 20px 0;
+    border: 1px solid var(--border-color);
 }
 
 .order-item {

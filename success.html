@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>支付成功</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script>
+        (() => {
+            try {
+                const saved = localStorage.getItem('theme-preference');
+                if (saved === 'light' || saved === 'dark') {
+                    document.documentElement.dataset.theme = saved;
+                }
+            } catch (_) {}
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="reward-card fade-in">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换主题" title="切换主题">🖥️</button>
+
             <!-- 加载状态 -->
             <div id="loadingState" class="loading-container">
                 <div class="loading-spinner"></div>
@@ -86,6 +98,7 @@
         </div>
     </div>
 
+    <script src="./assets/js/theme.js"></script>
     <script>
         const API_BASE_URL = './api';
 
